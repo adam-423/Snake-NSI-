@@ -1,5 +1,9 @@
 # Créé par Adam, le 03/12/2023 en Python 3.7
+import pygame
+pygame.init()
 
+son_fruit = pygame.mixer.Sound("pacman_eatfruit.wav")
+son_perdu = pygame.mixer.Sound("pacman_death.wav")
 
 #On importe le module tkinter pour l'interface graphique
 from tkinter import *
@@ -202,6 +206,9 @@ def mise_a_jour_snake():
         FRUIT = fruit_aleatoire()
         # on met à jour le score
         mise_a_jour_score()
+
+        son_fruit.play()
+
     # sinon
     else:
         # on enlève le dernier élément du serpent (c'est-à-dire: on ne grandit pas)
@@ -245,11 +252,15 @@ def tache():
         # on efface la barre des scores
         Barre.delete(0.0, 3.0)
         # on affiche perdu
-        Barre.insert(END, "Perdu avec un score de " + str(SCORE))
+        Barre.insert(END, "Dernier score atteint " + str(SCORE))
         # on prépare la nouvelle partie
         reinitialiser_jeu()
         # on rappelle la fonction principale
         fenetre.after(70, tache)
+
+        son_perdu.play()
+
+
     # sinon
     else:
         # on rappelle la fonction principale que j'ai changer pour aller plus vite
